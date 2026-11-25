@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dr.Ibrahim Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#26364a;--red:#dc3232;--brown:#84423a;--grey:#f3f3f3;--line:#e4e4e4}
+*{box-sizing:border-box;margin:0}
+body{font-family:Tajawal,sans-serif;color:var(--ink);background:#fff;padding-bottom:80px}
+button{font-family:inherit;cursor:pointer;border:0}
+#ann{background:var(--brown);color:#fff;text-align:center;padding:10px;font-size:15px}
+header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;position:sticky;top:0;background:#fff;z-index:20;border-bottom:1px solid var(--line)}
+header .logo{font-size:26px;font-weight:800;color:#000;letter-spacing:-.5px}
+header button{background:none;font-size:24px;color:var(--ink)}
+.banner{margin:14px 16px;border-radius:14px;overflow:hidden;background:var(--grey);aspect-ratio:16/9;position:relative}
+.banner img{width:100%;height:100%;object-fit:cover;display:none}.banner img.on{display:block}
+h2{font-size:22px;font-weight:700;margin:22px 16px 10px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:0 16px 4px}
+.chip{flex:none;padding:8px 16px;border:1px solid var(--line);border-radius:30px;background:#fff;font-size:15px;color:var(--ink)}
+.chip.on{background:var(--ink);color:#fff}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 16px}
+@media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}}
+.card{background:var(--grey);border-radius:10px;padding:8px;position:relative;display:flex;flex-direction:column}
+.card .im{background:#fff;aspect-ratio:1;display:flex;align-items:center;justify-content:center}
+.card img{max-width:100%;max-height:100%;object-fit:contain}
+.badge{position:absolute;top:14px;right:14px;background:#ff5a36;color:#fff;border-radius:20px;padding:2px 9px;font-size:13px;font-weight:700}
+.fav{position:absolute;top:10px;left:10px;background:#fff;border-radius:50%;width:32px;height:32px;font-size:17px}
+.card h3{font-size:15px;font-weight:500;margin:10px 4px 4px;min-height:44px;line-height:1.4}
+.price{margin:0 4px 8px;font-weight:700;color:var(--red)}.price s{color:#777;font-weight:400;margin-right:6px;font-size:14px}
+.add{background:var(--red);color:#fff;border-radius:6px;padding:10px;font-size:15px;margin-top:auto}
+.empty{text-align:center;padding:40px 16px;color:#777;grid-column:1/-1}
+nav{position:fixed;bottom:0;right:0;left:0;background:#fff;display:flex;justify-content:space-around;border-top:1px solid var(--line);z-index:30;padding:6px 0 8px}
+nav button{background:none;color:var(--ink);font-size:13px;display:flex;flex-direction:column;align-items:center;gap:2px;position:relative;font-weight:500}
+nav button span.i{font-size:22px}
+.cnt{position:absolute;top:-4px;right:2px;background:#000;color:#fff;border-radius:50%;min-width:18px;height:18px;font-size:11px;display:flex;align-items:center;justify-content:center}
+.wa{position:fixed;bottom:84px;left:14px;width:56px;height:56px;border-radius:50%;background:#25d366;color:#fff;font-size:28px;display:flex;align-items:center;justify-content:center;z-index:25;text-decoration:none;box-shadow:0 3px 10px #0004}
+.ov{position:fixed;inset:0;background:#0007;z-index:40;display:none}.ov.on{display:block}
+.sheet{position:absolute;top:0;bottom:0;right:0;width:min(86%,380px);background:#fff;padding:20px;overflow-y:auto}
+.sheet.bot{top:auto;right:0;left:0;width:auto;max-height:90vh;border-radius:18px 18px 0 0;margin:0 auto;max-width:560px}
+.menu a{display:block;padding:16px 0;border-bottom:1px solid var(--line);font-size:18px;cursor:pointer}
+.x{background:none;font-size:28px;margin-bottom:10px}
+.line{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.line img{width:56px;height:56px;object-fit:contain;background:var(--grey);border-radius:6px}
+.line div{flex:1;font-size:14px}
+.q{display:flex;gap:8px;align-items:center}.q button{width:28px;height:28px;border-radius:50%;background:var(--grey);font-size:16px}
+input,textarea{width:100%;padding:12px;margin:6px 0;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:15px;background:var(--grey)}
+.send{width:100%;background:#25d366;color:#fff;padding:14px;border-radius:8px;font-size:17px;font-weight:700;margin-top:8px}
+footer{background:var(--grey);margin:30px 0 0;padding:24px 16px;font-size:15px;line-height:1.9}
+footer a{color:var(--ink);margin-left:14px}
+</style>
+</head>
+<body>
+<div id="ann"></div>
+<header>
+  <button onclick="openMenu()" aria-label="القائمة">☰</button>
+  <div class="logo" id="logo">Dr.Ibrahim Store</div>
+  <button onclick="go('cart')" aria-label="السلة">🛒</button>
+</header>
+<main id="main"></main>
+<footer id="foot"></footer>
+<a class="wa" id="wa" target="_blank" rel="noopener" aria-label="واتساب">✆</a>
+<nav>
+  <button onclick="openMenu()"><span class="i">▦</span>القائمة</button>
+  <button onclick="go('search')"><span class="i">⌕</span>البحث</button>
+  <button onclick="go('home')"><span class="i">⌂</span>الرئيسية</button>
+  <button onclick="go('favs')"><span class="i">♡</span>المفضلة<b class="cnt" id="fc">0</b></button>
+  <button onclick="go('cart')"><span class="i">🛒</span>السلة<b class="cnt" id="cc">0</b></button>
+</nav>
+<div class="ov" id="ovMenu" onclick="if(event.target===this)closeOv()"><div class="sheet menu" id="menuBox"></div></div>
+<div class="ov" id="ovCart" onclick="if(event.target===this)closeOv()"><div class="sheet bot" id="cartBox"></div></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+// ===== الصق إعدادات Firebase هنا (نفس الإعدادات في admin.html) =====
+const firebaseConfig = {
+  apiKey: "PASTE_HERE", authDomain: "PASTE_HERE", projectId: "PASTE_HERE", appId: "PASTE_HERE"
+};
+// ====================================================================
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ls = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d } catch { return d } };
+const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)) } catch {} };
+
+let S = {storeName:'Dr.Ibrahim Store', announce:'', whatsapp:'', phone:'', address:'', categories:[], banners:[], fb:'', ig:'', tt:''};
+let P = [], cart = ls('cart', {}), favs = ls('favs', []), view = 'home', cat = '', q = '', bi = 0;
+
+db.doc('settings/main').onSnapshot(d => { if (d.exists) S = {...S, ...d.data()}; shell(); render(); });
+db.collection('products').orderBy('createdAt', 'desc').onSnapshot(s => {
+  P = s.docs.map(d => ({id: d.id, ...d.data()})).filter(p => !p.hidden); render();
+});
+
+function shell() {
+  document.title = S.storeName; $('logo').textContent = S.storeName;
+  $('ann').textContent = S.announce; $('ann').style.display = S.announce ? '' : 'none';
+  $('wa').href = 'https://wa.me/' + (S.whatsapp || '').replace(/\D/g, '');
+  $('foot').innerHTML = `<div>${esc(S.address)}</div>${S.phone ? `<div dir="ltr" style="text-align:right">Phone: <b>${esc(S.phone)}</b></div>` : ''}
+   <div style="margin-top:10px">${S.fb ? `<a href="${esc(S.fb)}">فيسبوك</a>` : ''}${S.ig ? `<a href="${esc(S.ig)}">انستجرام</a>` : ''}${S.tt ? `<a href="${esc(S.tt)}">تيك توك</a>` : ''}</div>`;
+}
+const pct = p => p.oldPrice > p.price ? Math.round((1 - p.price / p.oldPrice) * 100) : 0;
+function card(p) {
+  const d = pct(p);
+  return `<div class="card">${d ? `<span class="badge">-${d}%</span>` : ''}
+  <button class="fav" onclick="fav('${p.id}')">${favs.includes(p.id) ? '♥' : '♡'}</button>
+  <div class="im"><img src="${esc(p.img)}" alt="" loading="lazy"></div>
+  <h3>${esc(p.name)}</h3>
+  <div class="price">EGP ${p.price}${d ? ` <s>${p.oldPrice}</s>` : ''}</div>
+  <button class="add" onclick="add('${p.id}')">إضافة إلى السلة</button></div>`;
+}
+function render() {
+  const m = $('main'); let list = P;
+  if (view === 'favs') list = P.filter(p => favs.includes(p.id));
+  if (cat) list = list.filter(p => p.cat === cat);
+  if (q) list = list.filter(p => (p.name + ' ' + (p.brand || '')).toLowerCase().includes(q.toLowerCase()));
+  let h = '';
+  if (view === 'home' && S.banners?.length) h += `<div class="banner">${S.banners.map((b, i) => `<img src="${b}" class="${i === bi % S.banners.length ? 'on' : ''}" alt="">`).join('')}</div>`;
+  if (view === 'search') h += `<div style="padding:14px 16px 0"><input id="qi" placeholder="ابحث عن منتج..." value="${esc(q)}" oninput="q=this.value;render();this.focus()"></div>`;
+  if (view === 'favs') h += `<h2>المفضلة</h2>`;
+  if (view !== 'favs' && S.categories?.length) h += `<h2>${view === 'home' ? 'تسوّقي حسب القسم' : 'الأقسام'}</h2><div class="chips"><button class="chip ${!cat ? 'on' : ''}" onclick="setCat('')">الكل</button>${S.categories.map(c => `<button class="chip ${cat === c ? 'on' : ''}" onclick="setCat('${esc(c)}')">${esc(c)}</button>`).join('')}</div>`;
+  h += `<h2>${cat || 'اختيارات تستاهل'}</h2><div class="grid">${list.length ? list.map(card).join('') : '<div class="empty">لا توجد منتجات هنا حاليًا</div>'}</div>`;
+  m.innerHTML = h;
+  $('cc').textContent = Object.values(cart).reduce((a, b) => a + b, 0); $('fc').textContent = favs.length;
+  if (view === 'search' && document.activeElement?.tagName !== 'INPUT') $('qi')?.focus();
+}
+setInterval(() => { if (S.banners?.length > 1 && view === 'home') { bi++; document.querySelectorAll('.banner img').forEach((im, i) => im.classList.toggle('on', i === bi % S.banners.length)); } }, 4000);
+function go(v) { closeOv(); if (v === 'cart') return openCart(); view = v; cat = ''; q = ''; render(); scrollTo(0, 0); }
+function setCat(c) { cat = c; closeOv(); if (view === 'favs') view = 'home'; render(); }
+function fav(id) { favs = favs.includes(id) ? favs.filter(x => x !== id) : [...favs, id]; save('favs', favs); render(); }
+function add(id) { cart[id] = (cart[id] || 0) + 1; save('cart', cart); render(); }
+function chg(id, n) { cart[id] = (cart[id] || 0) + n; if (cart[id] <= 0) delete cart[id]; save('cart', cart); render(); openCart(); }
+function closeOv() { document.querySelectorAll('.ov').forEach(o => o.classList.remove('on')); }
+function openMenu() {
+  $('menuBox').innerHTML = `<button class="x" onclick="closeOv()">×</button><a onclick="go('home')">الرئيسية</a>` +
+    (S.categories || []).map(c => `<a onclick="setCat('${esc(c)}')">${esc(c)}</a>`).join('') + `<a onclick="go('favs')">المفضلة</a>`;
+  $('ovMenu').classList.add('on');
+}
+function openCart() {
+  const items = Object.keys(cart).map(id => ({p: P.find(x => x.id === id), n: cart[id]})).filter(x => x.p);
+  const total = items.reduce((a, x) => a + x.p.price * x.n, 0);
+  const u = ls('cust', {});
+  $('cartBox').innerHTML = `<button class="x" onclick="closeOv()">×</button><h2 style="margin:0 0 8px">السلة</h2>` + (items.length ? items.map(x => `
+   <div class="line"><img src="${esc(x.p.img)}" alt=""><div>${esc(x.p.name)}<br><b>EGP ${x.p.price}</b></div>
+   <div class="q"><button onclick="chg('${x.p.id}',1)">+</button>${x.n}<button onclick="chg('${x.p.id}',-1)">−</button></div></div>`).join('') + `
+   <p style="margin:12px 0;font-size:18px">الإجمالي: <b>EGP ${total}</b></p>
+   <input id="cn" placeholder="الاسم" value="${esc(u.n)}"><input id="cp" placeholder="رقم الموبايل" inputmode="tel" value="${esc(u.p)}">
+   <textarea id="ca" rows="2" placeholder="العنوان بالتفصيل">${esc(u.a)}</textarea>
+   <button class="send" onclick="order()">إتمام الطلب عبر واتساب</button>` : '<div class="empty">السلة فاضية</div>');
+  $('ovCart').classList.add('on');
+}
+async function order() {
+  const n = $('cn').value.trim(), p = $('cp').value.trim(), a = $('ca').value.trim();
+  if (!n || !p || !a) return alert('من فضلك املأ الاسم والرقم والعنوان');
+  save('cust', {n, p, a});
+  const items = Object.keys(cart).map(id => ({p: P.find(x => x.id === id), n: cart[id]})).filter(x => x.p);
+  const total = items.reduce((s, x) => s + x.p.price * x.n, 0);
+  const text = `طلب جديد من ${S.storeName}\n\n` + items.map(x => `• ${x.p.name} × ${x.n} = ${x.p.price * x.n} جنيه`).join('\n') +
+    `\n\nالإجمالي: ${total} جنيه\n\nالاسم: ${n}\nالموبايل: ${p}\nالعنوان: ${a}`;
+  const w = window.open('https://wa.me/' + (S.whatsapp || '').replace(/\D/g, '') + '?text=' + encodeURIComponent(text), '_blank');
+  try { await db.collection('orders').add({name: n, phone: p, address: a, total, text, status: 'جديد', createdAt: Date.now()}); } catch {}
+  cart = {}; save('cart', cart); closeOv(); render();
+  if (!w) location.href = 'https://wa.me/' + (S.whatsapp || '').replace(/\D/g, '') + '?text=' + encodeURIComponent(text);
+}
+shell(); render();
+</script>
+</body>
+</html>
